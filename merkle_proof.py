@@ -26,7 +26,7 @@ def merkle_proof(tx, merkle_tree):
     	hashed = []
     	H = 0
     	for i in range(0, len(txs), 2):
-    		hashed.append(txs[i] + txs[i+1])
+    		hashed.append(hash_data(txs[i] + txs[i+1]))
     		if (txs[i] == tx):
     			nodes.insert(0, Node('r', txs[i+1]))
     			H = hash_data(tx + txs[i+1])
