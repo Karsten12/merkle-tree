@@ -46,7 +46,10 @@ def verify_proof(tx, merkle_proof):
     """
     #### YOUR CODE HERE
     mRev = merkle_proof[::-1]
-    
-
-
-    
+    ret = tx
+    for txn in mRev:
+        if txn.direction == 'r':
+            ret = hash_data(ret + txn.tx)
+        else:
+            ret = hash_data(txn.tx + ret)
+    return ret
