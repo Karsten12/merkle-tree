@@ -12,6 +12,30 @@ def merkle_proof(tx, merkle_tree):
     Return this data as a list; remember that order matters!
     """
     #### YOUR CODE HERE
+    treeLs = merkle_tree.leaves
+    # txIndex = merkle_tree.leaves.index(tx)
+    # if len(tx) == 1:
+    # 	return []
+    # else:
+    # 	for i in range(0, len(lves), 2):
+    # 		print(lves[i], lves[i+1])
+
+    def rProof(txs, tx, nodes):
+    	if len(txs) == 1:
+    		return nodes
+    	hashed = []
+    	H = 0
+    	for i in range(0, len(txs), 2):
+    		hashed.append(txs[i] + txs[i+1])
+    		if (txs[i] == tx):
+    			nodes.insert(0, Node('r', txs[i+1]))
+    			H = hash_data(tx + txs[i+1])
+    		elif (txs[i+1] == tx):
+    			nodes.insert(0, Node('l', txs[i]))
+    			H = hash_data(txs[i] + tx)
+    	return rProof(hashed, H, nodes)
+
+    return rProof(treeLs, tx, [])
 
 
 
@@ -21,6 +45,8 @@ def verify_proof(tx, merkle_proof):
     along with every other piece of data in the proof in the correct order
     """
     #### YOUR CODE HERE
+    mRev = merkle_proof[::-1]
+    
 
 
     
